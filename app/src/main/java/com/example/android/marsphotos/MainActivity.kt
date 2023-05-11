@@ -19,8 +19,10 @@ package com.example.android.marsphotos
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.marsphotos.databinding.ActivityMainBinding
-import com.example.android.marsphotos.network.ApiInterface
-import com.example.android.marsphotos.network.MyDataItem
+import com.example.android.marsphotos.data.PostApiInterface
+import com.example.android.marsphotos.data.Post
+import com.example.android.marsphotos.data.PostList
+import com.example.android.marsphotos.data.PostRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,31 +30,21 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.text.StringBuilder
 
-/**
- * MainActivity sets the content view activity_main, a fragment container that contains
- * overviewFragment.
- */
+
 class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-//        val photoManager = PhotoManager()
         super.onCreate(savedInstanceState)
-
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getMyData(binding);
-
-
-
+        val postRepository = PostRepository()
         binding.button.setOnClickListener {
-            binding.textView.text = "Bonjour"
-//            photoManager.getMarsPhotos()
+            binding.textView.text = "... loading"
+            getMyData(binding);
         }
-
-
 
 
 //        val nameObserver = Observer<String> { newName ->
@@ -73,13 +65,13 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
             .build()
-            .create(ApiInterface::class.java)
+            .create(PostApiInterface::class.java)
         val retrofitData = retrofitBuilder.getData()
 
-        retrofitData.enqueue(object : Callback<List<MyDataItem>?> {
+        retrofitData.enqueue(object : Callback<List<Post>?> {
             override fun onResponse(
-                call: Call<List<MyDataItem>?>,
-                response: Response<List<MyDataItem>?>
+                call: Call<List<Post>?>,
+                response: Response<List<Post>?>
             ) {
                 val responseBody = response.body()!!
 
@@ -93,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 
             }
 
-            override fun onFailure(call: Call<List<MyDataItem>?>, t: Throwable) {
+            override fun onFailure(call: Call<List<Post>?>, t: Throwable) {
                 binding.textView.text = "on Failure " + t.message
             }
         })

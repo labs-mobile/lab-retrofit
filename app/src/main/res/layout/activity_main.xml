@@ -9,9 +9,10 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="185dp"
-        android:layout_height="41dp"
+        android:layout_width="409dp"
+        android:layout_height="408dp"
         android:text="TextView"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

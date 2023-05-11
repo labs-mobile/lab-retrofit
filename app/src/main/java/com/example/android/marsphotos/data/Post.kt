@@ -1,8 +1,8 @@
-package com.example.android.marsphotos.network
+package com.example.android.marsphotos.data
 
 import com.google.gson.annotations.SerializedName
 
-data class MyDataItem(
+data class Post(
     @SerializedName("body")
     val content: String,
     val id: Int,
