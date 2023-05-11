@@ -18,14 +18,84 @@ package com.example.android.marsphotos
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.android.marsphotos.databinding.ActivityMainBinding
+import com.example.android.marsphotos.network.ApiInterface
+import com.example.android.marsphotos.network.MyDataItem
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.text.StringBuilder
 
 /**
  * MainActivity sets the content view activity_main, a fragment container that contains
  * overviewFragment.
  */
 class MainActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+//        val photoManager = PhotoManager()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        getMyData(binding);
+
+
+
+        binding.button.setOnClickListener {
+            binding.textView.text = "Bonjour"
+//            photoManager.getMarsPhotos()
+        }
+
+
+
+
+//        val nameObserver = Observer<String> { newName ->
+//            // Update the UI, in this case, a TextView.
+//            binding.textView.text = newName
+//        }
+//        photoManager.status.observe(this,nameObserver)
+
+
+        // The internal MutableLiveData that stores the status of the most recent request
+//        private val _status = MutableLiveData<String>()
+    }
+
+    private fun getMyData(binding: ActivityMainBinding) {
+        val BASE_URL = "https://jsonplaceholder.typicode.com/"
+
+        val retrofitBuilder = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .build()
+            .create(ApiInterface::class.java)
+        val retrofitData = retrofitBuilder.getData()
+
+        retrofitData.enqueue(object : Callback<List<MyDataItem>?> {
+            override fun onResponse(
+                call: Call<List<MyDataItem>?>,
+                response: Response<List<MyDataItem>?>
+            ) {
+                val responseBody = response.body()!!
+
+                val stringBuilder = StringBuilder()
+                for (myData in responseBody){
+                    stringBuilder.append(myData.title)
+                    stringBuilder.append("\n")
+                }
+                binding.textView.text = stringBuilder
+
+
+            }
+
+            override fun onFailure(call: Call<List<MyDataItem>?>, t: Throwable) {
+                binding.textView.text = "on Failure " + t.message
+            }
+        })
     }
 }
