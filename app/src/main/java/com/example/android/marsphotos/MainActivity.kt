@@ -19,24 +19,11 @@ package com.example.android.marsphotos
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.marsphotos.databinding.ActivityMainBinding
-import com.example.android.marsphotos.data.PostApiInterface
-import com.example.android.marsphotos.data.Post
-import com.example.android.marsphotos.data.PostList
-import com.example.android.marsphotos.data.PostRepository
 import com.example.android.marsphotos.data.TaskRepository
 import com.example.android.marsphotos.ui.TaskAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.random.Random
-import kotlin.text.StringBuilder
 
 
 class MainActivity : AppCompatActivity() {

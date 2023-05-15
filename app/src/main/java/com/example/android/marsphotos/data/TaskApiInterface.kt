@@ -3,8 +3,8 @@ package com.example.android.marsphotos.data
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface PostApiInterface {
+interface TaskApiInterface {
 
     @GET("posts")
-    fun getData() : Call<List<Post>>
+    fun getData() : Call<List<TaskEntry>>
 }

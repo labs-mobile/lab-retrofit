@@ -56,33 +56,21 @@ class TaskDao {
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
             .build()
-            .create(PostApiInterface::class.java)
+            .create(TaskApiInterface::class.java)
         val retrofitData = retrofitBuilder.getData()
 
-        retrofitData.enqueue(object : Callback<List<Post>?> {
+        retrofitData.enqueue(object : Callback<List<TaskEntry>?> {
             override fun onResponse(
-                call: Call<List<Post>?>,
-                response: Response<List<Post>?>
+                call: Call<List<TaskEntry>?>,
+                response: Response<List<TaskEntry>?>
             ) {
-                val responseBody = response.body()!!
-
-                var lsTasks : MutableList<TaskEntry> = mutableListOf<TaskEntry>()
-                for (myData in responseBody){
-                    val task = TaskEntry(myData.id,myData.title,1,System.currentTimeMillis())
-                    lsTasks.add(0,task)
-                }
-
-                reasult_tasks.value = lsTasks
-
-
+                reasult_tasks.value = response.body()!!.toMutableList()
             }
 
-            override fun onFailure(call: Call<List<Post>?>, t: Throwable) {
+            override fun onFailure(call: Call<List<TaskEntry>?>, t: Throwable) {
                 val msg = "on Failure " + t.message
             }
         })
-
-
 
 
 //        return TaskDao.list_tasks
