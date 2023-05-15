@@ -17,17 +17,25 @@
 package com.example.android.marsphotos
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.marsphotos.databinding.ActivityMainBinding
 import com.example.android.marsphotos.data.PostApiInterface
 import com.example.android.marsphotos.data.Post
 import com.example.android.marsphotos.data.PostList
 import com.example.android.marsphotos.data.PostRepository
+import com.example.android.marsphotos.data.TaskRepository
+import com.example.android.marsphotos.ui.TaskAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.random.Random
 import kotlin.text.StringBuilder
 
 
@@ -39,55 +47,33 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val postRepository = PostRepository()
-        binding.button.setOnClickListener {
-            binding.textView.text = "... loading"
+        val repository = TaskRepository()
+        repository.getAllTasks()
 
-            getMyData(binding);
+        repository.taskDao.reasult_tasks.observe(this, Observer {
+            binding.recyclerView.adapter!!.notifyDataSetChanged()
+        })
+
+
+        binding.apply {
+
+            val taskAdapter = TaskAdapter(repository)
+            recyclerView.layoutManager = LinearLayoutManager(applicationContext)
+            recyclerView.adapter =  taskAdapter
+            floatingActionButton.setOnClickListener{
+
+//                val repository = TaskRepository()
+//                val newTask = repository.newTask();
+//                newTask.title = "New task" + Random.nextInt()
+//                repository.save(newTask)
+                repository.getAllTasks()
+                Toast.makeText(applicationContext,"Ajouter une tâche", Toast.LENGTH_LONG).show()
+                taskAdapter.notifyDataSetChanged()
+            }
+
         }
 
-
-//        val nameObserver = Observer<String> { newName ->
-//            // Update the UI, in this case, a TextView.
-//            binding.textView.text = newName
-//        }
-//        photoManager.status.observe(this,nameObserver)
-
-
-        // The internal MutableLiveData that stores the status of the most recent request
-//        private val _status = MutableLiveData<String>()
     }
 
-    private fun getMyData(binding: ActivityMainBinding) {
-        val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
-        val retrofitBuilder = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
-            .build()
-            .create(PostApiInterface::class.java)
-        val retrofitData = retrofitBuilder.getData()
-
-        retrofitData.enqueue(object : Callback<List<Post>?> {
-            override fun onResponse(
-                call: Call<List<Post>?>,
-                response: Response<List<Post>?>
-            ) {
-                val responseBody = response.body()!!
-
-                val stringBuilder = StringBuilder()
-                for (myData in responseBody){
-                    stringBuilder.append(myData.title)
-                    stringBuilder.append("\n")
-                }
-                binding.textView.text = stringBuilder
-
-
-            }
-
-            override fun onFailure(call: Call<List<Post>?>, t: Throwable) {
-                binding.textView.text = "on Failure " + t.message
-            }
-        })
-    }
 }

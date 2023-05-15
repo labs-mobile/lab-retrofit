@@ -28,14 +28,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class PostRepository() {
 
+    var isLoading : MutableLiveData<Boolean> = MutableLiveData(false)
+
+
+    var resault = ""
+
 
     fun FindAll(){
 
+        this.isLoading.value = true
 
-    }
-
-
-    private fun getMyData(binding: ActivityMainBinding) {
         val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
         val retrofitBuilder = Retrofit.Builder()
@@ -57,16 +59,54 @@ class PostRepository() {
                     stringBuilder.append(myData.title)
                     stringBuilder.append("\n")
                 }
-                binding.textView.text = stringBuilder
+                resault = stringBuilder.toString()
+                isLoading.value = false
 
 
             }
 
             override fun onFailure(call: Call<List<Post>?>, t: Throwable) {
-                binding.textView.text = "on Failure " + t.message
+                resault = "on Failure " + t.message
             }
         })
+
+
+
     }
+
+
+//    private fun getMyData(binding: ActivityMainBinding) {
+//        val BASE_URL = "https://jsonplaceholder.typicode.com/"
+//
+//        val retrofitBuilder = Retrofit.Builder()
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .baseUrl(BASE_URL)
+//            .build()
+//            .create(PostApiInterface::class.java)
+//        val retrofitData = retrofitBuilder.getData()
+//
+//        retrofitData.enqueue(object : Callback<List<Post>?> {
+//            override fun onResponse(
+//                call: Call<List<Post>?>,
+//                response: Response<List<Post>?>
+//            ) {
+//                val responseBody = response.body()!!
+//
+//                val stringBuilder = StringBuilder()
+//                for (myData in responseBody){
+//                    stringBuilder.append(myData.title)
+//                    stringBuilder.append("\n")
+//                }
+//                binding.textView.text = stringBuilder
+//
+//
+//            }
+//
+//            override fun onFailure(call: Call<List<Post>?>, t: Throwable) {
+//                binding.textView.text = "on Failure " + t.message
+//            }
+//        })
+//    }
 
 
 
