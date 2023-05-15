@@ -33,7 +33,6 @@ import kotlin.text.StringBuilder
 
 class MainActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -43,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         val postRepository = PostRepository()
         binding.button.setOnClickListener {
             binding.textView.text = "... loading"
+
             getMyData(binding);
         }
 
