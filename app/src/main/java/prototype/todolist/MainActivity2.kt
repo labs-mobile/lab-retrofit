@@ -17,15 +17,20 @@ import prototype.todolist.model.User
 import prototype.todolist.utils.Status
 
 class MainActivity2 : AppCompatActivity() {
+
     private lateinit var viewModel: MainViewModel
     private lateinit var adapter: MainAdapter
-
     private lateinit var binding: ActivityMain2Binding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        // ViewBinding
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         setupViewModel()
         setupUI()
         setupObservers()
