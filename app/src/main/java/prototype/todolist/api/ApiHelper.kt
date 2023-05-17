@@ -1,4 +1,4 @@
-package com.example.movieapplication.api
+package prototype.todolist.api
 
 class ApiHelper(private val apiService: ApiService) {
 

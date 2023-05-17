@@ -1,4 +1,4 @@
-package com.example.movieapplication.model
+package prototype.todolist.model
 
 
 import com.google.gson.annotations.SerializedName

@@ -1,4 +1,4 @@
-package com.example.movieapplication.utils
+package prototype.todolist.utils
 
 enum class Status {
     SUCCESS,

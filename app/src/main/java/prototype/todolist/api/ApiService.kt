@@ -1,6 +1,6 @@
-package com.example.movieapplication.api
+package prototype.todolist.api
 
-import com.example.movieapplication.model.User
+import prototype.todolist.model.User
 import retrofit2.http.GET
 
 interface ApiService {

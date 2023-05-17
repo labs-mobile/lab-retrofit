@@ -1,6 +1,6 @@
-package com.example.movieapplication.repo
+package prototype.todolist.repo
 
-import com.example.movieapplication.api.ApiHelper
+import prototype.todolist.api.ApiHelper
 
 
 class MainRepository(private val apiHelper: ApiHelper) {
