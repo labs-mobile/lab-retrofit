@@ -1,7 +1,7 @@
-package prototype.todolist.data
+package prototype.todolist.models
 
 
-data class TaskEntry  (
+data class Task  (
     var id: Int,
     var title: String,
     var priority: Int,

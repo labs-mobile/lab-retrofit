@@ -1,6 +1,16 @@
-# Lab - Retrofit -  MVVM
+# Lab - Retrofit -  Standard
 
-- https://github.com/HarshitaBambure/Retrofit
+## Architecture 
+
+- MVVM
+
+## Prérequis
+
+- coroutines
+  - Introduction to coroutines
+    - https://developer.android.com/codelabs/basic-android-kotlin-training-introduction-coroutines
+  - https://developer.android.com/kotlin/coroutines?hl=fr
+  - https://developer.android.com/topic/libraries/architecture/coroutines?hl=fr
 
 
 
@@ -53,7 +63,6 @@ dependencies {
 # Références
 
 - https://github.com/HarshitaBambure/Retrofit
-
 - https://medium.com/@umang.burman.micro/androids-mvvm-architecture-in-kotlin-ft-retrofit-6acc22cabfc6
   - https://github.com/umangburman/MVVM-Retrofit-Kotlin-Example
 - https://square.github.io/retrofit/

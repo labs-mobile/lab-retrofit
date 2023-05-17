@@ -57,6 +57,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-common:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-runtime:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+    // ViewModelScope
+    // androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0
+
 
 
     //Retrofit

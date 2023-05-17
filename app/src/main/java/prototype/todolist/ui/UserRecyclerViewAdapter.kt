@@ -1,4 +1,4 @@
-package prototype.todolist
+package prototype.todolist.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import prototype.todolist.model.User
+import prototype.todolist.R
+import prototype.todolist.models.User
 
-class MainAdapter(private val users: ArrayList<User>) : RecyclerView.Adapter<MainAdapter.DataViewHolder>() {
+class UserRecyclerViewAdapter(private val users: ArrayList<User>) : RecyclerView.Adapter<UserRecyclerViewAdapter.DataViewHolder>() {
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -17,15 +18,12 @@ class MainAdapter(private val users: ArrayList<User>) : RecyclerView.Adapter<Mai
         val textViewUserEmail: TextView = itemView.findViewById<TextView>(R.id.textViewUserEmail)
         val imageViewAvatar: ImageView = itemView.findViewById<ImageView>(R.id.imageViewAvatar)
 
-
         fun bind(user: User) {
-            itemView.apply {
-                textViewUserName.text = user.name
-                textViewUserEmail.text = user.email
-                Glide.with(imageViewAvatar.context)
-                    .load(user.avatar)
-                    .into(imageViewAvatar)
-            }
+            textViewUserName.text = user.name
+            textViewUserEmail.text = user.email
+            Glide.with(imageViewAvatar.context)
+                .load(user.avatar)
+                .into(imageViewAvatar)
         }
     }
 
